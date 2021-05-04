@@ -1,10 +1,9 @@
 from torch_geometric.utils import to_dense_adj
 import numpy as np
+import torch
 from sklearn.metrics import roc_auc_score, average_precision_score
 
 
- def sigmoid(x):
-        return 1 / (1 + np.exp(-x))
 
 def get_roc_score(z, x, edges_pos, edges_neg):
     z=z.cpu()
@@ -23,7 +22,7 @@ def get_roc_score(z, x, edges_pos, edges_neg):
     preds_neg = []
     neg = []
     for e in edges_neg.T:
-        preds_neg.append(sigmoid(adj_rec[e[0], e[1]]))
+        preds_neg.append(torch.sigmoid(adj_rec[e[0], e[1]]))
         neg.append(adj_orig[e[0], e[1]])
 
     preds_all = np.hstack([preds, preds_neg])
