@@ -2,16 +2,15 @@ from torch_geometric.utils import to_dense_adj
 import numpy as np
 from sklearn.metrics import roc_auc_score, average_precision_score
 
-def get_roc_score(z, x, edges_pos, edges_neg):
-   
 
+ def sigmoid(x):
+        return 1 / (1 + np.exp(-x))
+
+def get_roc_score(z, x, edges_pos, edges_neg):
     z=z.cpu()
 
     adj_orig = to_dense_adj(x)[0]
-
-    def sigmoid(x):
-        return 1 / (1 + np.exp(-x))
-
+   
     # Predict on test set of edges
     adj_rec = np.dot(z, z.T)
 
