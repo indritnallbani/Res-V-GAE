@@ -1,9 +1,9 @@
 from torch_geometric.utils import to_dense_adj
-
+import numpy as np
+from sklearn.metrics import roc_auc_score, average_precision_score
 
 def get_roc_score(z, x, edges_pos, edges_neg):
-    import numpy as np
-    from sklearn.metrics import roc_auc_score, average_precision_score
+   
 
     z=z.cpu()
 
