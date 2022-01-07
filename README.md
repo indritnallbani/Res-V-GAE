@@ -1,3 +1,1 @@
-# Representation-Learning-using-Graph-Autoencoders-with-Residual-Connections
-
-Pytorch-Geometric must be installed.
+Res(V)GAE: LINK PREDICTION USING GRAPH AUTOENCODERS WITH RESIDUALCONNECTIONS
