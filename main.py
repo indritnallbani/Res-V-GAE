@@ -13,6 +13,7 @@ from utils import get_roc_score
 import statistics
 
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', type=str, default='VGAE', help='GAE, VGAE')
 parser.add_argument('--dev', type=str, default='cuda', help='Use cuda or cpu')
@@ -27,7 +28,7 @@ parser.add_argument('--lr', type=float, default=0.01, help='Initial learning rat
 parser.add_argument('--res', type=str, default="True", help='Residual connection')
 args = parser.parse_args()
 
-#download datasets from pytorch-geometric
+#download datasets
 path = os.join(os.dirname(os.realpath(__file__)), '..', 'data', args.dataset)
 dataset = Planetoid(path, args.dataset)
 
@@ -63,7 +64,7 @@ for i in range(1, args.runs +1):
 
 
     z_final= None
-    for epoch in range(1, 200):
+    for epoch in range(1, 100):
 
         model.train()
         optimizer.zero_grad()
@@ -82,8 +83,6 @@ for i in range(1, args.runs +1):
         #last embedding
         z_final=z
 
-
-
         auc, ap = model.test(z, data.val_pos_edge_index, data.val_neg_edge_index)
 
     model.eval()
@@ -96,3 +95,4 @@ for i in range(1, args.runs +1):
 
 print('AUC score: {:.2f} +/-{:.2f}'.format(statistics.mean(auc_score_list), statistics.stdev(auc_score_list)))
 print('AP score: {:.2f} +/- {:.2f}'.format(statistics.mean(ap_score_list), statistics.stdev(ap_score_list)))
+print("------------------------")
