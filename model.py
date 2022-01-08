@@ -10,9 +10,9 @@ class Encoder_VGAE(torch.nn.Module):
 		super(Encoder_VGAE, self).__init__()
 
 		self.conv1 = GCNConv(in_channels,hidden1)
-		self.residual = Residual(hidden1, hidden1)
+		self.residual = Residual(hidden1, hidden1,res)
 		self.depth = depth
-		self.residual=res
+		
 
 		self.conv_mu = GCNConv(hidden1, hidden2)
 		self.conv_logstd = GCNConv(hidden1, hidden2)
@@ -25,7 +25,8 @@ class Encoder_VGAE(torch.nn.Module):
 		for i in range(1, self.depth + 1):
 			x = self.residual(x,edge_index)
 
-		self.conv_mu(x, edge_index), self.conv_logstd(x, edge_index)
+		return self.conv_mu(x, edge_index), self.conv_logstd(x, edge_index)
+
 
 
 
@@ -37,7 +38,6 @@ class Encoder_GAE(torch.nn.Module):
 		self.conv1 = GCNConv(in_channels,hidden1)
 		self.layers = Residual(hidden1, hidden1,res)
 		self.depth = depth
-		self.residual=res
 
 		#lastlayer
 		self.convx = GCNConv(hidden1, hidden2)
@@ -63,7 +63,9 @@ class Residual(torch.nn.Module):
 
 		output = F.relu(self.conv(x, edge_index))
 
+
 		if self.res == 'True':
+			
 			return output + x
 		else:
 			return output
