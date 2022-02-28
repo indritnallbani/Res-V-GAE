@@ -8,7 +8,7 @@ Finally, we have contributed twofold: firstly we study the effectiveness of addi
 
 **Model Architecture**
 
-Model architecture of the GAE, ResGAE, VGAE, and ResVGAE. Residual connections start after the first Hidden Layer (HL) since the input and the
+Model architecture of Res(V)GAE. Residual connections start after the first Hidden Layer (HL) since the input and the
 output size of layers with residual connections must be the same. The encoder takes the adjacency matrix A and the feature matrix X as inputs and outputs
 the node embeddings Z. The decoder takes as input the embedding matrix Z and outputs the reconstructed adjacency matrix Aˆ. The blocks in blue indicate
 the graph convolutional layers that embed 32-dimensional node feature vectors into a matrix. Similarly, yellow blocks constitute the graph convolutional
